@@ -109,11 +109,11 @@ class Character:
 
     def json_output(self):
         output = json.dumps(self.__dict__)
-        print(output)
+        # print(output)
         return output
 
 
-if __name__ == "__main__":
-    zed = Character()
-    Character.char_gen(zed)
-    Character.json_output(zed)
+# if __name__ == "__main__":
+#     zed = Character()
+#     Character.char_gen(zed)
+#     Character.json_output(zed)
