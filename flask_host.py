@@ -1,10 +1,13 @@
 from flask import Flask, request, jsonify
 import requests
-import json
+
 app = Flask(__name__)
 
+clients = ["http://127.0.0.1:5000/char"]
+controller = "http://127.0.0.1:5002"
 
-@app.route('/', methods=["POST", "GET"])
+
+@app.route('/char', methods=["POST", "GET"])
 def get_char():
     """
     time to think. Im over-complicating things as usual. There only needs to be 1 server, the core server, which will
@@ -13,7 +16,17 @@ def get_char():
     coordinating between the player and GM. This needs more thought and a whiteboard
     :return:
     """
-    return ascii("wenis")
+    if request.method == "POST":
+        with open("test.txt", 'r') as temp:
+            char = temp.read()
+        print("returning data")
+        requests.post(data=char, url=controller+'/char')
+    elif request.method == "GET":
+        print("getting data")
+        char = requests.get(url=clients[0])
+        with open("test.txt", 'w') as temp:
+            temp.write(char.text)
+    return "yay"
 
 
 if __name__ == "__main__":
