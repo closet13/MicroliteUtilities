@@ -1,5 +1,4 @@
 import requests
-import char_creator as cc
 from flask import Flask, json, request
 
 app = Flask(__name__)
@@ -7,12 +6,15 @@ app = Flask(__name__)
 
 @app.route("/char")
 def char_signal():
-    char: object
     if request.method == "GET":
         print("making request")
         char = requests.get(url='http://127.0.0.1:5001/char')
-    else:
-
+    elif request.method == "POST":
+        char = request.data
+        print("saving")
+        print(str(char))
+        with open("out.txt", 'w') as temp:
+            temp.write(str(char))
     return "yay"
 
 
